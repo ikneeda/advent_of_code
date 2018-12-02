@@ -1,4 +1,4 @@
-const test = "+3, +3, +4, -2, -4"
+const test = "+3,\n +3,\n +4,\n -2, \n-4"
 
 //reads input
 const fs = require('fs');
@@ -19,14 +19,19 @@ let frequency = function(data){
 let calculateFirstDuplicateFreq = function(data){
 
   let frequencies = [];
-  const arr = data.split('\n').map(x => parseInt(x,10));
+  let arr = data.split('\n').map(x => parseInt(x,10));
 
-  //pushes unique frequencies to list 
-  const pushFreq = (accumulator, currentValue) => {
+  //continue to process data until duplicate frequency is found
+
+  //find all the frquencies first time
+  const findFreq = (accumulator, currentValue, currentIndex, array) => {
     frequencies.push(accumulator);
-    console.log(frequencies);
-    return accumulator + currentValue;
-  }
+    return accumulator + currentValue
+  };
+
+  arr.reduce(findFreq);
+  return frequencies;
+
  }
 
 console.log(frequency(test));
