@@ -1,3 +1,5 @@
+const test = "+3, +3, +4, -2, -4"
+
 //reads input
 const fs = require('fs');
 
@@ -6,12 +8,26 @@ const data = fs.readFileSync('input.txt', 'utf8');
 //initialize frequency
 let freq = 0;
 
-let calculateFreq = function(data){
+let frequency = function(data){
   //convert string input to integers and put in array
   const arr = data.split('\n').map(x => parseInt(x,10));
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-  let frequency = arr.reduce(reducer);
-  return frequency;
+  return arr.reduce(reducer);
 }
-console.log(calculateFreq(data));
+
+let calculateFirstDuplicateFreq = function(data){
+
+  let frequencies = [];
+  const arr = data.split('\n').map(x => parseInt(x,10));
+
+  //pushes unique frequencies to list 
+  const pushFreq = (accumulator, currentValue) => {
+    frequencies.push(accumulator);
+    console.log(frequencies);
+    return accumulator + currentValue;
+  }
+ }
+
+console.log(frequency(test));
+console.log(calculateFirstDuplicateFreq(test));
