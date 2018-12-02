@@ -5,34 +5,37 @@ const fs = require('fs');
 
 const data = fs.readFileSync('input.txt', 'utf8');
 
-//initialize frequency
-let freq = 0;
-
+//calculates final frequency
 let frequency = function(data){
   //convert string input to integers and put in array
-  const arr = data.split('\n').map(x => parseInt(x,10));
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  let arr = data.split('\n').map(x => parseInt(x,10));
+  let reducer = (acc, currValue) => acc + currValue;
 
   return arr.reduce(reducer);
 }
 
-let calculateFirstDuplicateFreq = function(data){
+//finds frequency dupe
+let calculateFirstDupe = function(data){
 
-  let frequencies = [];
   let arr = data.split('\n').map(x => parseInt(x,10));
+  let length = arr.length;
+  let frequency = 0;
 
-  //continue to process data until duplicate frequency is found
+  // Set object lets you store unique values of any type
+  let frequencies = new Set([0]);
 
-  //find all the frquencies first time
-  const findFreq = (accumulator, currentValue, currentIndex, array) => {
-    frequencies.push(accumulator);
-    return accumulator + currentValue
-  };
 
-  arr.reduce(findFreq);
-  return frequencies;
+  // loop until dupe is found
+  for(let x = 0 ; ; x = ((x+1) % length)){
+    frequency += arr[x];
 
- }
+    if(frequencies.has(frequency)){
+      return frequency;
+    }else{
+      frequencies.add(frequency);
+    }
+  }
+}
 
-console.log(frequency(test));
-console.log(calculateFirstDuplicateFreq(test));
+console.log(frequency(data));
+console.log(calculateFirstDupe(data));
